@@ -9,7 +9,7 @@ public class BillingController {
 
     @RequestMapping("/info")
     public Object info(){
-        return "/billing/billingInfo.html";
+        return "/demos/excel_import.html";
     }
 
 }
