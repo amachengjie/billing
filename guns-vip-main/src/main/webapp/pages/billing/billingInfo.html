@@ -6,40 +6,41 @@
 
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
-        <div class="layui-col-sm12 layui-col-md12 layui-col-lg12">
+        <div class="layui-col-sm12 layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body">
                     <div class="layui-form toolbar">
-                        <div class="layui-form-item  layui-col-lg12 layui-row">
-                            <div class="layui-inline">
+                        <div class="layui-form-item">
+                            <div class="layui-inline ">
                                 <select id="orderState" name="orderState" lay-search="">
-                                    <option value="">请选择订单状态</option>
-                                    <option value="0">待发货</option>
-                                    <option value="1">已发货</option>
-                                    <option value="2">已签收</option>
-                                    <option value="4">已取消</option>
+                                    <option value="">请选择账单类型</option>
+                                    <option value="0">餐饮</option>
+                                    <option value="1">3C电子</option>
+                                    <option value="2">交通</option>
+                                    <option value="4">投资</option>
                                 </select>
                             </div>
-                            <div class="layui-inline">
+                            <div class="layui-inline ">
                                 <div class="layui-inline ">
                                     <input id="date1" class="layui-input" type="text"
-                                           placeholder="订单开始日期" />
-                                </div>至
+                                           placeholder="账单开始日期" />
+                                </div>
+                                至
                                 <div class="layui-inline ">
                                     <input id="date2" class="layui-input" type="text"
-                                           placeholder="订单结束日期" />
+                                           placeholder="账单结束日期" />
                                 </div>
                             </div>
-                            <div class="layui-inline">
+                            <div class="layui-inline ">
                                 <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
                             </div>
-                            <div class="layui-inline">
+                            <div class="layui-inline ">
                                 <button id="buttonExcel" lay-submit="" class="layui-btn layui-btn-warm">
                                     <i class="layui-icon"></i>导出Excel</button>
                             </div>
                         </div>
                     </div>
-                    <table class="layui-table" id="orderTable" lay-filter="orderTable"></table>
+                    <table class="layui-table" id="billingInfoTable" lay-filter="billingInfoTable"></table>
                 </div>
             </div>
         </div>
