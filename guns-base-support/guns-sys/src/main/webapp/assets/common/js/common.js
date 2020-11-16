@@ -115,6 +115,7 @@ layui.config({
     citypicker: 'city-picker/city-picker',
     introJs: 'introJs/introJs',
     zTree: 'zTree/zTree',
+    echarts: 'echarts/echarts',
 
     //一下是Guns用的插件
     formSelects: '../../expand/module/formSelects/formSelects-v4',

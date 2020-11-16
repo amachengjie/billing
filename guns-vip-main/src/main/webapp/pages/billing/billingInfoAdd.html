@@ -1,0 +1,54 @@
+@layout("/common/_container.html",{js:["/assets/billing/billingInfoAdd.js"]}){
+<form class="layui-form" id="couponForm">
+    <input type="hidden" name="id" id="id"class="layui-input">
+    <input type="hidden" name="receivedCount" id="receivedCount"class="layui-input">
+    <input type="hidden" name="useCount" id="useCount"class="layui-input">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>新增账单</legend>
+    </fieldset>
+    <div class="layui-form-item">
+        <label class="layui-form-label">账单类型</label>
+        <div class="layui-input-block" style="width: 200px;">
+            <select id="billingType" name="billingType" lay-search="" lay-verify="required">
+                <option value="">请选择账单类型</option>
+                <option value="repast">餐饮</option>
+                <option value="traffic">交通</option>
+                <option value="invest">投资</option>
+                <option value="online_shopping">网上购物</option>
+                <option value="shopping">线下购物</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">账单描述</label>
+        <div class="layui-input-block">
+            <textarea id="billingMemo" name="billingMemo" lay-verify="required" placeholder="请输入账单描述" class="layui-textarea" style="width: 400px;"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">账单金额</label>
+            <div class="layui-input-inline">
+                <input type="number" id="billingPrice" name="billingPrice" placeholder="请输入金额" autocomplete="off" lay-verify="required|clength" class="layui-input">
+            </div>
+            <div class="layui-form-mid">￥</div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">日期</label>
+            <div class="layui-input-inline" style="width: 150px;">
+                <input type="text" name="billingTime" id="date1" lay-verify="required|datetime" placeholder="请输入日期" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" id="submit" lay-submit="" lay-filter="btnSubmit">立即提交</button>
+            <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        </div>
+    </div>
+</form>
+
+
+@}

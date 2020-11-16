@@ -12,12 +12,13 @@
                     <div class="layui-form toolbar">
                         <div class="layui-form-item">
                             <div class="layui-inline ">
-                                <select id="orderState" name="orderState" lay-search="">
+                                <select id="billingType" name="billingType" lay-search="">
                                     <option value="">请选择账单类型</option>
-                                    <option value="0">餐饮</option>
-                                    <option value="1">3C电子</option>
-                                    <option value="2">交通</option>
-                                    <option value="4">投资</option>
+                                    <option value="repast">餐饮</option>
+                                    <option value="traffic">交通</option>
+                                    <option value="invest">投资</option>
+                                    <option value="online_shopping">网上购物</option>
+                                    <option value="shopping">线下购物</option>
                                 </select>
                             </div>
                             <div class="layui-inline ">
@@ -34,12 +35,12 @@
                             <div class="layui-inline ">
                                 <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
                             </div>
-                            <div class="layui-inline ">
-                                <button id="buttonExcel" lay-submit="" class="layui-btn layui-btn-warm">
-                                    <i class="layui-icon"></i>导出Excel</button>
+                            <div class="layui-inline">
+                                <button id="saveBillingPage" class="layui-btn icon-btn"><i class="layui-icon">&#xe624;</i>新增账单</button>
                             </div>
                         </div>
                     </div>
+                    <div id="EchartBilling" style="width: auto;height: 500px;"> </div>
                     <table class="layui-table" id="billingInfoTable" lay-filter="billingInfoTable"></table>
                 </div>
             </div>

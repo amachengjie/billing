@@ -1,6 +1,8 @@
 package cn.stylefeng.guns.modular.finance.service.impl;
 
 import cn.stylefeng.guns.base.pojo.page.LayuiPageFactory;
+import cn.stylefeng.guns.modular.finance.entity.Billing;
+import cn.stylefeng.guns.modular.finance.entity.BillingReport;
 import cn.stylefeng.guns.modular.finance.mapper.BillingMapper;
 import cn.stylefeng.guns.modular.finance.service.BillingService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -18,8 +22,18 @@ public class BillingServiceImpl implements BillingService {
     private BillingMapper billingMapper;
 
     @Override
-    public Page<Map<String, Object>> billingInfoList() {
+    public Page<Map<String, Object>> billingInfoList(String billingType, String startTime, String endTime) {
         Page page = LayuiPageFactory.defaultPage();
-        return billingMapper.list(page);
+        return billingMapper.list(page,billingType,startTime,endTime);
+    }
+
+    @Override
+    public int saveBilling(Billing billing) {
+        return billingMapper.saveBilling(billing);
+    }
+
+    @Override
+    public List<BillingReport> getReportListBySix(Date newTime,Date oldTime) {
+        return billingMapper.getReportListBySix(newTime,oldTime);
     }
 }

@@ -5,10 +5,68 @@
 
     <select id="list" resultType="map">
         select
-        *
-        from billing_info
-        order by create_date DESC
+        bi.*
+        from billing_info bi
+        where 1=1
+        <if test="billingType!=null and billingType !=''">
+            AND bi.billing_type = #{billingType}
+        </if>
+        <if test="startTime != null and endTime != null and startTime != '' and endTime != ''">
+            AND bi.create_date BETWEEN #{startTime} AND #{endTime}
+        </if>
+        order by bi.create_date DESC
+    </select>
+    <insert id="saveBilling">
+        INSERT INTO billing_info(
+        member_id,
+        member_name,
+        billing_type,
+        billing_memo,
+        billing_amount,
+        create_by,
+        billing_time,
+        create_date
+        ) values (
+        #{memberId},
+        #{memberName},
+        #{billingType},
+        #{billingMemo},
+        #{billingPrice},
+        #{memberId},
+        #{billingTime},
+        #{createDate}
+        )
+    </insert>
+    <select id="getReportListBySix" resultType="cn.stylefeng.guns.modular.finance.entity.BillingReport">
+  	SELECT
+     sum( b.billing_amount ) AS billingAmount,
+	 DATE_FORMAT( billing_time, '%Y-%m-%d' ) AS date
+    FROM
+	 billing_info b
+    WHERE
+	  b.`del_flag` = 0  AND billing_time BETWEEN #{oldTime} AND #{newTime}
+    GROUP BY
+	  DATE_FORMAT( billing_time, '%Y-%m-%d')
     </select>
 
+    <select id="selectDayStatistics" resultType="cn.stylefeng.guns.modular.finance.entity.BillingReport">
+    SELECT COUNT(1) AS num,DATE_FORMAT(create_time, '%Y-%m-%d') AS time FROM t_feedback t
+    WHERE t.company_id=#{companyId} AND t.`del_flag` = 0 AND create_time LIKE CONCAT(#{time},'%')
+    GROUP BY DATE_FORMAT(create_time, '%Y-%m-%d')
+    </select>
 
+    <select id="selectMonthStatistics" resultType="cn.stylefeng.guns.modular.finance.entity.BillingReport">
+  	SELECT COUNT(1) AS num,DATE_FORMAT(create_time, '%Y-%m') AS time FROM t_feedback t
+    WHERE t.company_id=#{companyId} AND t.`del_flag` = 0 AND create_time LIKE CONCAT(#{time}, '%')
+    GROUP BY DATE_FORMAT(create_time, '%Y-%m')
+    </select>
+
+    <select id="selectYearStatistics" resultType="cn.stylefeng.guns.modular.finance.entity.BillingReport">
+  	SELECT
+     SELECT COUNT(1) AS num,DATE_FORMAT(create_time, '%Y') AS time FROM t_feedback t
+    WHERE t.company_id=#{companyId} AND t.`del_flag` = 0 AND create_time > (#{time}-1)
+    GROUP BY DATE_FORMAT(create_time, '%Y')
+    GROUP BY
+	  DATE_FORMAT( create_date, '%Y-%m-%d')
+    </select>
 </mapper>
