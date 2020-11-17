@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface BillingMapper extends BaseMapper<Billing> {
-    Page<Map<String, Object>> list(Page page,String billingType, String startTime, String endTime);
+    Page<Map<String, Object>> list(@Param("page") Page page, @Param("billingType") String billingType, @Param("startTime") String startTime, @Param("endTime") String endTime, @Param("userId") Long userId);
 
     int saveBilling(Billing billing);
 
-    List<BillingReport> getReportListBySix(@Param("newTime") Date newTime,@Param("oldTime")Date oldTime);
+    List<BillingReport> getReportListBySix(@Param("newTime") Date newTime, @Param("oldTime") Date oldTime);
 }

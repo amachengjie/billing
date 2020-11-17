@@ -42,7 +42,8 @@ public class BillingController {
     public Object list(@RequestParam(required = false) String billingType
             , @RequestParam(required = false) String startTime
             , @RequestParam(required = false) String endTime) {
-        Page<Map<String, Object>> page = billingService.billingInfoList(billingType, startTime, endTime);
+        LoginUser user = LoginContextHolder.getContext().getUser();
+        Page<Map<String, Object>> page = billingService.billingInfoList(billingType, startTime, endTime,user.getId());
         for (Map<String, Object> m : page.getRecords()) {
             if (ToolUtil.isNotEmpty(m.get("billing_type"))) {
                 if ("repast".equals(m.get("billing_type"))) {

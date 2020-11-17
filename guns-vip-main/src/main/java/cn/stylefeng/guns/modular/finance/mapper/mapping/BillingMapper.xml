@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.stylefeng.guns.modular.finance.mapper.BillingMapper">
-
-
     <select id="list" resultType="map">
         select
         bi.*
@@ -13,6 +11,9 @@
         </if>
         <if test="startTime != null and endTime != null and startTime != '' and endTime != ''">
             AND bi.create_date BETWEEN #{startTime} AND #{endTime}
+        </if>
+        <if test="userId!=null and userId !=''">
+            AND bi.member_id = #{userId}
         </if>
         order by bi.create_date DESC
     </select>

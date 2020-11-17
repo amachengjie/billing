@@ -22,9 +22,9 @@ public class BillingServiceImpl implements BillingService {
     private BillingMapper billingMapper;
 
     @Override
-    public Page<Map<String, Object>> billingInfoList(String billingType, String startTime, String endTime) {
+    public Page<Map<String, Object>> billingInfoList(String billingType, String startTime, String endTime,Long userId) {
         Page page = LayuiPageFactory.defaultPage();
-        return billingMapper.list(page,billingType,startTime,endTime);
+        return billingMapper.list(page,billingType,startTime,endTime,userId);
     }
 
     @Override

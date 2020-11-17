@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface BillingService {
-    Page<Map<String, Object>> billingInfoList(String billingType, String startTime, String endTime);
+    Page<Map<String, Object>> billingInfoList(String billingType, String startTime, String endTime,Long userId);
 
     int saveBilling(Billing billing);
 
