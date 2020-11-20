@@ -15,7 +15,7 @@
         <if test="userId!=null and userId !=''">
             AND bi.member_id = #{userId}
         </if>
-        order by bi.create_date DESC
+        order by bi.billing_time DESC
     </select>
     <insert id="saveBilling">
         INSERT INTO billing_info(
@@ -38,17 +38,35 @@
         #{createDate}
         )
     </insert>
-    <select id="getReportListBySix" resultType="cn.stylefeng.guns.modular.finance.entity.BillingReport">
+    <select id="getReportDate" resultType="cn.stylefeng.guns.modular.finance.entity.BillingReport">
   	SELECT
-     sum( b.billing_amount ) AS billingAmount,
 	 DATE_FORMAT( billing_time, '%Y-%m-%d' ) AS date
+	 ,billing_time AS time
     FROM
 	 billing_info b
     WHERE
 	  b.`del_flag` = 0  AND billing_time BETWEEN #{oldTime} AND #{newTime}
     GROUP BY
 	  DATE_FORMAT( billing_time, '%Y-%m-%d')
+	ORDER BY time
     </select>
+
+    <select id="getReportDataByType" resultType="cn.stylefeng.guns.modular.finance.entity.BillingReport">
+        SELECT
+        	sum( b.billing_amount ) AS billingAmount,
+        	DATE_FORMAT( billing_time, '%Y-%m-%d' ) AS date,
+        	billing_time AS time
+        FROM
+        	billing_info b
+        WHERE
+        	b.`del_flag` = 0
+        	AND billing_type = #{type}
+        	AND billing_time BETWEEN #{oldTime} AND #{newTime}
+        GROUP BY
+        	DATE_FORMAT( billing_time, '%Y-%m-%d')
+        ORDER BY time
+    </select>
+
 
     <select id="selectDayStatistics" resultType="cn.stylefeng.guns.modular.finance.entity.BillingReport">
     SELECT COUNT(1) AS num,DATE_FORMAT(create_time, '%Y-%m-%d') AS time FROM t_feedback t

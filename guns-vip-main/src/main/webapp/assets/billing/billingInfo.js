@@ -37,9 +37,9 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'excel',
         return [[
             {field: 'member_id', sort: true, title: '用户ID', hide: true},
             {field: 'billing_type', sort: true, title: '账单类型'},
-            {field: 'billing_memo', sort: true, title: '账单描述', width: 500},
-            {field: 'billing_amount', sort: true, title: '账单总金额'},
-            {field: 'billing_time', sort: true, title: '账单时间'},
+            {field: 'billing_memo', sort: true, title: '账单描述', width: 300},
+            {field: 'billing_amount', sort: true, title: '账单总金额',},
+            {field: 'billing_time', sort: true, title: '账单时间',width: 300},
             {field: 'create_date', sort: true, title: '创建时间'},
             {field: 'member_name', sort: true, title: '用户名称'}
         ]];
@@ -135,7 +135,87 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'excel',
                         }]
                     };
 
-                    chartZhu.setOption(optionchart, true);
+                   var  option = {
+                        tooltip: {
+                            trigger: 'axis',
+                            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                            }
+                        },
+                        legend: {
+                            data: ['餐饮', '交通', '投资', '还款', '网上购物','线下购物']
+                        },
+                        grid: {
+                            left: '5%',
+                            right: '4%',
+                            bottom: '3%',
+                            containLabel: true
+                        },
+                        xAxis: {
+                            type: 'value'
+                        },
+                        yAxis: {
+                            type: 'category',
+                            data: data.data.dateList
+                        },
+                        series: [
+                            {
+                                name: '餐饮',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    show: false
+                                },
+                                data: data.data.repastCollect
+                            },
+                            {
+                                name: '交通',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    show: false
+                                },
+                                data: data.data.trafficCollect
+                            },
+                            {
+                                name: '投资',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    show: false
+                                },
+                                data: data.data.investCollect
+                            },
+                            {
+                                name: '还款',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    show: false
+                                },
+                                data: data.data.repaymentCollect
+                            },
+                            {
+                                name: '网上购物',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    show: false
+                                },
+                                data: data.data.online_shoppingCollect
+                            },
+                            {
+                                name: '线下购物',
+                                type: 'bar',
+                                stack: '总量',
+                                label: {
+                                    show: false
+                                },
+                                data: data.data.shoppingCollect
+                            }
+                        ]
+                    };
+                    chartZhu.setOption(option, true);
                 }
             },
             error: function (data) {

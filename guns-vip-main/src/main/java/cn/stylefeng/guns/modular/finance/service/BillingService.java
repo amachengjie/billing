@@ -14,5 +14,7 @@ public interface BillingService {
 
     int saveBilling(Billing billing);
 
-    List<BillingReport> getReportListBySix(Date newTime,Date oldTime);
+    List<BillingReport> getReportDate(Date newTime,Date oldTime);
+
+    List<BillingReport> getReportDataByType(Date date, Date time, String type);
 }

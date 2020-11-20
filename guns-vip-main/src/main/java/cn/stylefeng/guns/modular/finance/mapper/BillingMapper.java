@@ -15,5 +15,7 @@ public interface BillingMapper extends BaseMapper<Billing> {
 
     int saveBilling(Billing billing);
 
-    List<BillingReport> getReportListBySix(@Param("newTime") Date newTime, @Param("oldTime") Date oldTime);
+    List<BillingReport> getReportDate(@Param("newTime") Date newTime, @Param("oldTime") Date oldTime);
+
+    List<BillingReport> getReportDataByType(@Param("newTime") Date newTime, @Param("oldTime") Date oldTime,@Param("type") String type);
 }

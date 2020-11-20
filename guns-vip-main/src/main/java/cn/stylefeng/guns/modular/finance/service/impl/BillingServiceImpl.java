@@ -33,7 +33,12 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
-    public List<BillingReport> getReportListBySix(Date newTime,Date oldTime) {
-        return billingMapper.getReportListBySix(newTime,oldTime);
+    public List<BillingReport> getReportDate(Date newTime,Date oldTime) {
+        return billingMapper.getReportDate(newTime,oldTime);
+    }
+
+    @Override
+    public List<BillingReport> getReportDataByType(Date date, Date time, String type) {
+        return billingMapper.getReportDataByType(date,time,type);
     }
 }
