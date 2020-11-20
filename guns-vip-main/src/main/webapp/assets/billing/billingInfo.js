@@ -136,6 +136,9 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'excel',
                     };
 
                    var  option = {
+                       title: {
+                           text: '近三十天开销'
+                       },
                         tooltip: {
                             trigger: 'axis',
                             axisPointer: {            // 坐标轴指示器，坐标轴触发有效

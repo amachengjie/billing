@@ -64,6 +64,9 @@ public class BillingController {
                 if ("shopping".equals(m.get("billing_type"))) {
                     m.put("billing_type", "线下购物");
                 }
+                if ("income".equals(m.get("billing_type"))) {
+                    m.put("billing_type", "收入");
+                }
             }
         }
         return LayuiPageFactory.createPageInfo(page);
