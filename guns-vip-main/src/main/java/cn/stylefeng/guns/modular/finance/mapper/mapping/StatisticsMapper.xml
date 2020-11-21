@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.finance.mapper.StatisticsMapper">
+
+    <select id="getReportDate" resultType="string">
+  	SELECT
+	 DATE_FORMAT( billing_time, '%Y-%m' ) AS date
+    FROM
+	 billing_info b
+    WHERE
+	  b.`del_flag` = 0   AND DATE_FORMAT( billing_time, '%Y') = DATE_FORMAT(#{date}, '%Y')
+    GROUP BY
+	  DATE_FORMAT( billing_time, '%Y-%m')
+    </select>
+	<select id="getReportData" resultType="cn.stylefeng.guns.modular.finance.entity.BillingReport">
+    SELECT
+     	sum(billing_amount ) AS billingAmount,
+     	DATE_FORMAT( billing_time, '%Y-%m' ) AS date
+     FROM
+     	billing_info
+     WHERE
+     DATE_FORMAT( billing_time, '%Y') = DATE_FORMAT( #{date}, '%Y')
+     AND billing_type NOT IN (${type})
+     GROUP BY
+     	DATE_FORMAT( billing_time, '%Y-%m' )
+    </select>
+</mapper>

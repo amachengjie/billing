@@ -7,7 +7,6 @@ import java.util.Date;
 
 @Data
 public class BillingReport {
-
     private BigDecimal billingAmount;
     private String date;
     private Date time;

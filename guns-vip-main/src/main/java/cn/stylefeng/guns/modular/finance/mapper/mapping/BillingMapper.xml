@@ -45,7 +45,7 @@
     FROM
 	 billing_info b
     WHERE
-	  b.`del_flag` = 0  AND billing_time BETWEEN #{oldTime} AND #{newTime}
+	  b.`del_flag` = 0  AND billing_time BETWEEN #{oldTime} AND #{newTime}  AND billing_type != 'income'
     GROUP BY
 	  DATE_FORMAT( billing_time, '%Y-%m-%d')
 	ORDER BY time

@@ -122,7 +122,7 @@ public class BillingController {
             billingReport.setBillingAmount(BigDecimal.ZERO);
             billingReport.setDate(b.getDate());
             billingReport.setTime(new Date());
-            long count1 = reportDateList.stream().    filter(c -> c.equals(b.getDate())).count();
+            long count1 = reportDateList.stream().filter(c -> c.equals(b.getDate())).count();
             long count2 = trafficDateList.stream().filter(c -> c.equals(b.getDate())).count();
             long count3 = investDateList.stream().filter(c -> c.equals(b.getDate())).count();
             long count4 =  repaymentDateList.stream().filter(c -> c.equals(b.getDate())).count();
