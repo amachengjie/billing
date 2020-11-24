@@ -22,9 +22,9 @@ public class BillingServiceImpl implements BillingService {
     private BillingMapper billingMapper;
 
     @Override
-    public Page<Map<String, Object>> billingInfoList(String billingType, String startTime, String endTime,Long userId) {
+    public Page<Map<String, Object>> billingInfoList(String billingType, String startTime, String endTime, Long userId) {
         Page page = LayuiPageFactory.defaultPage();
-        return billingMapper.list(page,billingType,startTime,endTime,userId);
+        return billingMapper.list(page, billingType, startTime, endTime, userId);
     }
 
     @Override
@@ -33,12 +33,12 @@ public class BillingServiceImpl implements BillingService {
     }
 
     @Override
-    public List<BillingReport> getReportDate(Date newTime,Date oldTime) {
-        return billingMapper.getReportDate(newTime,oldTime);
+    public List<BillingReport> getReportDate(Date newTime, Date oldTime, Long userId) {
+        return billingMapper.getReportDate(newTime, oldTime, userId);
     }
 
     @Override
-    public List<BillingReport> getReportDataByType(Date date, Date time, String type) {
-        return billingMapper.getReportDataByType(date,time,type);
+    public List<BillingReport> getReportDataByType(Date date, Date time, String type, Long userId) {
+        return billingMapper.getReportDataByType(date, time, type, userId);
     }
 }

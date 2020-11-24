@@ -96,18 +96,21 @@ public class BillingController {
     @ResponseBody
     public Object getReportListBySix() {
         Map<String, Object> data = new HashMap<>();
+        //获取当前用户角色列表
+        LoginUser user = LoginContextHolder.getContext().getUser();
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE, -10);
-        List<BillingReport> reports = billingService.getReportDate(new Date(), calendar.getTime());
+        List<BillingReport> reports = billingService.getReportDate(new Date(), calendar.getTime(),user.getId());
         List<String> dateList = reports.stream().map(c -> c.getDate()).collect(Collectors.toList());
 
-        List<BillingReport> repastList = billingService.getReportDataByType(new Date(), calendar.getTime(), "repast");
-        List<BillingReport> trafficList = billingService.getReportDataByType(new Date(), calendar.getTime(), "traffic");
-        List<BillingReport> investList = billingService.getReportDataByType(new Date(), calendar.getTime(), "invest");
-        List<BillingReport> repaymentList = billingService.getReportDataByType(new Date(), calendar.getTime(), "repayment");
-        List<BillingReport> online_shoppingList = billingService.getReportDataByType(new Date(), calendar.getTime(), "online_shopping");
-        List<BillingReport> shoppingList = billingService.getReportDataByType(new Date(), calendar.getTime(), "shopping");
+        List<BillingReport> repastList = billingService.getReportDataByType(new Date(), calendar.getTime(), "repast",user.getId());
+        List<BillingReport> trafficList = billingService.getReportDataByType(new Date(), calendar.getTime(), "traffic",user.getId());
+        List<BillingReport> investList = billingService.getReportDataByType(new Date(), calendar.getTime(), "invest",user.getId());
+        List<BillingReport> repaymentList = billingService.getReportDataByType(new Date(), calendar.getTime(), "repayment",user.getId());
+        List<BillingReport> online_shoppingList = billingService.getReportDataByType(new Date(), calendar.getTime(), "online_shopping",user.getId());
+        List<BillingReport> shoppingList = billingService.getReportDataByType(new Date(), calendar.getTime(), "shopping",user.getId());
 
         List<String> reportDateList = repastList.stream().map(c -> c.getDate()).collect(Collectors.toList());
         List<String> trafficDateList = trafficList.stream().map(c -> c.getDate()).collect(Collectors.toList());

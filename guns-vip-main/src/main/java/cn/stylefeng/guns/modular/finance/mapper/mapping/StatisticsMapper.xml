@@ -8,7 +8,7 @@
     FROM
 	 billing_info b
     WHERE
-	  b.`del_flag` = 0   AND DATE_FORMAT( billing_time, '%Y') = DATE_FORMAT(#{date}, '%Y')
+	  b.`del_flag` = 0   AND DATE_FORMAT( billing_time, '%Y') = DATE_FORMAT(#{date}, '%Y') AND b.member_id = #{userId}
     GROUP BY
 	  DATE_FORMAT( billing_time, '%Y-%m')
     </select>
@@ -21,6 +21,7 @@
      WHERE
      DATE_FORMAT( billing_time, '%Y') = DATE_FORMAT( #{date}, '%Y')
      AND billing_type NOT IN (${type})
+     AND member_id = #{userId}
      GROUP BY
      	DATE_FORMAT( billing_time, '%Y-%m' )
     </select>

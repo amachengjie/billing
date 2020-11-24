@@ -1,5 +1,7 @@
 package cn.stylefeng.guns.modular.finance.controller;
 
+import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
+import cn.stylefeng.guns.base.auth.model.LoginUser;
 import cn.stylefeng.guns.modular.finance.entity.BillingReport;
 import cn.stylefeng.guns.modular.finance.service.StatisticsService;
 import cn.stylefeng.roses.kernel.model.response.ResponseData;
@@ -30,13 +32,16 @@ public class StatisticsController {
     @ResponseBody
     public Object getMasterMap() {
         Map<String, Object> data = new HashMap<>();
-        List<String> reports = statisticsService.getReportDate(new Date());
+        //获取当前用户角色列表
+        LoginUser user = LoginContextHolder.getContext().getUser();
 
-        List<BillingReport> otherData = statisticsService.getReportData(new Date(), "'income'");
+        List<String> reports = statisticsService.getReportDate(new Date(), user.getId());
+
+        List<BillingReport> otherData = statisticsService.getReportData(new Date(), "'income'", user.getId());
         otherData.forEach(c -> {
             c.setBillingAmount(c.getBillingAmount().negate());
         });
-        List<BillingReport> incomeData = statisticsService.getReportData(new Date(), "'repast','traffic','invest','repayment','online_shopping','shopping'");
+        List<BillingReport> incomeData = statisticsService.getReportData(new Date(), "'repast','traffic','invest','repayment','online_shopping','shopping'", user.getId());
 
         List<String> incomeDataList = incomeData.stream().map(c -> c.getDate()).collect(Collectors.toList());
         List<String> otherDateList = otherData.stream().map(c -> c.getDate()).collect(Collectors.toList());

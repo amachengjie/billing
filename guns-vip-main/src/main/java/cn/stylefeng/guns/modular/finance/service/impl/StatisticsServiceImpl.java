@@ -3,6 +3,7 @@ package cn.stylefeng.guns.modular.finance.service.impl;
 import cn.stylefeng.guns.modular.finance.entity.BillingReport;
 import cn.stylefeng.guns.modular.finance.mapper.StatisticsMapper;
 import cn.stylefeng.guns.modular.finance.service.StatisticsService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,12 +18,12 @@ public class StatisticsServiceImpl implements StatisticsService {
 
 
     @Override
-    public List<String> getReportDate(Date date) {
-        return statisticsMapper.getReportDate(date);
+    public List<String> getReportDate(Date date, Long userId) {
+        return statisticsMapper.getReportDate(date, userId);
     }
 
     @Override
-    public List<BillingReport> getReportData(Date date, String type) {
-        return statisticsMapper.getReportData(date,type);
+    public List<BillingReport> getReportData(Date date, String type, Long userId) {
+        return statisticsMapper.getReportData(date, type, userId);
     }
 }

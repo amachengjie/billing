@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface StatisticsMapper {
 
-    List<String> getReportDate(@Param("date") Date date);
+    List<String> getReportDate(@Param("date") Date date, @Param("userId") Long userId);
 
-    List<BillingReport> getReportData(@Param("date") Date date, @Param("type") String type);
+    List<BillingReport> getReportData(@Param("date") Date date, @Param("type") String type, @Param("userId") Long userId);
 }

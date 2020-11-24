@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface BillingService {
-    Page<Map<String, Object>> billingInfoList(String billingType, String startTime, String endTime,Long userId);
+    Page<Map<String, Object>> billingInfoList(String billingType, String startTime, String endTime, Long userId);
 
     int saveBilling(Billing billing);
 
-    List<BillingReport> getReportDate(Date newTime,Date oldTime);
+    List<BillingReport> getReportDate(Date newTime, Date oldTime, Long userId);
 
-    List<BillingReport> getReportDataByType(Date date, Date time, String type);
+    List<BillingReport> getReportDataByType(Date date, Date time, String type, Long userId);
 }

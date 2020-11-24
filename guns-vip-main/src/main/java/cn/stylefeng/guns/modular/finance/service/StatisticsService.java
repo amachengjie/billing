@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface StatisticsService {
-    List<String> getReportDate(Date date);
+    List<String> getReportDate(Date date, Long userId);
 
-    List<BillingReport> getReportData(Date date, String type);
+    List<BillingReport> getReportData(Date date, String type, Long userId);
 }
