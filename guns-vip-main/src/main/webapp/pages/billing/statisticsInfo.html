@@ -1,4 +1,4 @@
-@layout("/common/_container.html",{js:["/assets/billing/statisticsInfo.js?v=1.1"]}){
+@layout("/common/_container.html",{js:["/assets/billing/statisticsInfo.js?v=1.2"]}){
 
 <div class="layui-body-header">
     <span class="layui-body-header-title">个人消费统计</span>
@@ -12,16 +12,11 @@
                     <div class="layui-form toolbar">
                         <div class="layui-form-item">
                             <div class="layui-inline ">
-                                <select id="billingType" name="billingType" lay-search="">
-                                    <option value="">请选择统计类型</option>
-                                    <option value="repast">餐饮</option>
-                                    <option value="traffic">交通</option>
-                                    <option value="invest">投资</option>
-                                    <option value="repayment">还款</option>
-                                    <option value="online_shopping">网上购物</option>
-                                    <option value="shopping">线下购物</option>
-                                    <option value="income">收入</option>
-                                </select>
+                                <input id="date1" class="layui-input" type="text" autocomplete="off"
+                                       placeholder="账单年份" />
+                            </div>
+                            <div class="layui-inline ">
+                                <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>查询</button>
                             </div>
                         </div>
                     </div>

@@ -1,9 +1,12 @@
 package cn.stylefeng.guns.modular.finance.controller;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
 import cn.stylefeng.guns.base.auth.model.LoginUser;
 import cn.stylefeng.guns.modular.finance.entity.BillingReport;
 import cn.stylefeng.guns.modular.finance.service.StatisticsService;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.response.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,19 +33,26 @@ public class StatisticsController {
 
     @RequestMapping("/getMasterMap")
     @ResponseBody
-    public Object getMasterMap() {
+    public Object getMasterMap(String dateStr) {
         Map<String, Object> data = new HashMap<>();
+        Date date;
+        if (ToolUtil.isEmpty(dateStr)) {
+            date = new Date();
+        } else {
+            DateTime parse = DateUtil.parse(dateStr + "0101");
+            date = parse.toJdkDate();
+        }
         //获取当前用户角色列表
         LoginUser user = LoginContextHolder.getContext().getUser();
 
-        List<String> reports = statisticsService.getReportDate(new Date(), user.getId());
+        List<String> reports = statisticsService.getReportDate(date, user.getId());
 
-        List<BillingReport> otherData = statisticsService.getReportData(new Date(), "'income'", user.getId());
+        List<BillingReport> otherData = statisticsService.getReportData(date, "'income'", user.getId());
         otherData.forEach(c -> {
             c.setBillingAmount(c.getBillingAmount().negate());
         });
-        List<BillingReport> incomeData = statisticsService.getReportData(new Date(), "'repast','traffic','invest','repayment','online_shopping','shopping'", user.getId());
-
+        List<BillingReport> incomeData = statisticsService.getReportData(date, "'repast','traffic','invest','repayment','online_shopping','shopping'", user.getId());
+        //组织时间数据
         List<String> incomeDataList = incomeData.stream().map(c -> c.getDate()).collect(Collectors.toList());
         List<String> otherDateList = otherData.stream().map(c -> c.getDate()).collect(Collectors.toList());
 
