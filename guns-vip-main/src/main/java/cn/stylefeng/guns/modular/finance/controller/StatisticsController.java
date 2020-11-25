@@ -30,6 +30,10 @@ public class StatisticsController {
         return "/billing/statisticsInfo.html";
     }
 
+    @RequestMapping("/pie")
+    public Object pie() {
+        return "/billing/statisticsPie.html";
+    }
 
     @RequestMapping("/getMasterMap")
     @ResponseBody
@@ -68,19 +72,21 @@ public class StatisticsController {
             billingReport.setTime(new Date());
             long count1 = incomeDataList.stream().filter(c -> c.equals(b)).count();//收入
             long count2 = otherDateList.stream().filter(c -> c.equals(b)).count();//支出
-
+            //收入支出都为空 则利润为空
             if (count1 <= 0 && count2 <= 0) {
                 profitList.add(billingReport);
                 incomeData.add(billingReport);
                 otherData.add(billingReport);
             }
+            //收入为空  支出不为空 则利润为0
             if (count1 <= 0 && count2 > 0) {
                 BillingReport billingReport1 = new BillingReport();
-                billingReport1.setBillingAmount(otherData.get(i).getBillingAmount().negate());
+                billingReport1.setBillingAmount(otherData.get(i).getBillingAmount());
                 billingReport1.setDate(b);
-                profitList.add(billingReport1);
+                profitList.add(billingReport);
                 incomeData.add(billingReport);
             }
+            //收入不为空  支出为空 则利润为收入
             if (count1 > 0 && count2 <= 0) {
                 BillingReport billingReport1 = new BillingReport();
                 billingReport1.setBillingAmount(incomeData.get(i).getBillingAmount());
@@ -88,6 +94,7 @@ public class StatisticsController {
                 profitList.add(billingReport1);
                 otherData.add(billingReport);
             }
+            //收入不为空  支出不为空 则利润为收入+支出
             if (count1 > 0 && count2 > 0) {
                 BillingReport billingReport1 = new BillingReport();
                 BigDecimal subtract = incomeData.get(i).getBillingAmount().add(otherData.get(i).getBillingAmount());
@@ -107,5 +114,66 @@ public class StatisticsController {
         data.put("profitCollect", profitCollect);
         return ResponseData.success(0000, "", data);
     }
+
+    @RequestMapping("/getPieMap")
+    @ResponseBody
+    public Object getPieMap(String dateStr) {
+        Map<String, Object> data = new HashMap<>();
+        Date date;
+        if (ToolUtil.isEmpty(dateStr)) {
+            date = new Date();
+        } else {
+            DateTime parse = DateUtil.parse(dateStr + "0101");
+            date = parse.toJdkDate();
+        }
+        //获取当前用户角色列表
+        LoginUser user = LoginContextHolder.getContext().getUser();
+        List<Map<String, Object>> dataList = statisticsService.getPieMapData(date, user.getId());
+        List<Map<String, Object>> responsDataList = new ArrayList<>();
+        List<String> nameList = new ArrayList<>();
+        dataList.forEach(c -> {
+            Map<String, Object> map = new HashMap<>();
+            if (c.get("name").toString().equals("repast")) {
+                nameList.add("餐饮");
+                map.put("value", c.get("value"));
+                map.put("name", "餐饮");
+                responsDataList.add(map);
+            }
+            if (c.get("name").toString().equals("traffic")) {
+                nameList.add("交通");
+                map.put("value", c.get("value"));
+                map.put("name", "交通");
+                responsDataList.add(map);
+            }
+            if (c.get("name").toString().equals("invest")) {
+                nameList.add("投资");
+                map.put("value", c.get("value"));
+                map.put("name", "投资");
+                responsDataList.add(map);
+            }
+            if (c.get("name").toString().equals("repayment")) {
+                nameList.add("还款");
+                map.put("value", c.get("value"));
+                map.put("name", "还款");
+                responsDataList.add(map);
+            }
+            if (c.get("name").toString().equals("online_shopping")) {
+                nameList.add("网上购物");
+                map.put("value", c.get("value"));
+                map.put("name", "网上购物");
+                responsDataList.add(map);
+            }
+            if (c.get("name").toString().equals("shopping")) {
+                nameList.add("线下购物");
+                map.put("value", c.get("value"));
+                map.put("name", "线下购物");
+                responsDataList.add(map);
+            }
+        });
+        data.put("dataList", responsDataList);
+        data.put("nameList", nameList);
+        return ResponseData.success(0000, "", data);
+    }
+
 
 }

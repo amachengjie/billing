@@ -25,4 +25,19 @@
      GROUP BY
      	DATE_FORMAT( billing_time, '%Y-%m' )
     </select>
+
+    <select id="getPieMapData" resultType="map">
+    SELECT
+     	sum( b.billing_amount ) AS value,
+        billing_type AS name
+     FROM
+     	billing_info b
+     WHERE
+     	b.`del_flag` = 0
+     	AND DATE_FORMAT( billing_time, '%Y') = DATE_FORMAT(#{date}, '%Y')
+     	AND b.member_id = #{userId}
+     	AND b.billing_type !='income'
+     GROUP BY
+     	billing_type
+    </select>
 </mapper>
