@@ -36,6 +36,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax', 'laydate', 'element', 'uploa
             dataType: "json",
             success: function (data) {
                 if (data.code == '0000') {
+                    var loading = layer.msg('正在生成报表', {icon: 16, shade: 0.3, time:0});
                     var chartZhu = echarts.init(document.getElementById('masterMap'));
                     var option = {
                         tooltip: {
@@ -99,6 +100,7 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax', 'laydate', 'element', 'uploa
                         ]
                     };
                     chartZhu.setOption(option, true);
+                    layer.close(loading);
                 }
             },
             error: function (data) {
