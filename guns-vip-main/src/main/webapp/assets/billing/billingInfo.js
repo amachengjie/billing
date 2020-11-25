@@ -98,6 +98,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'excel',
     });
 
     function  report(){
+        var loading = layer.msg('正在生成报表', {icon: 16, shade: 0.3, time:0});
         $.ajax({
             url: Feng.ctxPath + "/billing/info/getReportListBySix",
             data: {},
@@ -105,7 +106,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'excel',
             dataType: "json",
             success: function (data) {
                 if (data.code == '0000') {
-                    var loading = layer.msg('正在生成报表', {icon: 16, shade: 0.3, time:0});
+
                     var chartZhu = echarts.init(document.getElementById('EchartBilling'));
                     var optionchart = {
                         title: {
