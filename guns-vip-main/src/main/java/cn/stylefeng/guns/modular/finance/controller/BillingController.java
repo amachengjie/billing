@@ -101,16 +101,16 @@ public class BillingController {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
-        calendar.add(Calendar.DATE, -10);
-        List<BillingReport> reports = billingService.getReportDate(new Date(), calendar.getTime(),user.getId());
+        calendar.add(Calendar.DATE, -9);//最近十天
+        List<BillingReport> reports = billingService.getReportDate(new Date(), calendar.getTime(), user.getId());
         List<String> dateList = reports.stream().map(c -> c.getDate()).collect(Collectors.toList());
 
-        List<BillingReport> repastList = billingService.getReportDataByType(new Date(), calendar.getTime(), "repast",user.getId());
-        List<BillingReport> trafficList = billingService.getReportDataByType(new Date(), calendar.getTime(), "traffic",user.getId());
-        List<BillingReport> investList = billingService.getReportDataByType(new Date(), calendar.getTime(), "invest",user.getId());
-        List<BillingReport> repaymentList = billingService.getReportDataByType(new Date(), calendar.getTime(), "repayment",user.getId());
-        List<BillingReport> online_shoppingList = billingService.getReportDataByType(new Date(), calendar.getTime(), "online_shopping",user.getId());
-        List<BillingReport> shoppingList = billingService.getReportDataByType(new Date(), calendar.getTime(), "shopping",user.getId());
+        List<BillingReport> repastList = billingService.getReportDataByType(new Date(), calendar.getTime(), "repast", user.getId());
+        List<BillingReport> trafficList = billingService.getReportDataByType(new Date(), calendar.getTime(), "traffic", user.getId());
+        List<BillingReport> investList = billingService.getReportDataByType(new Date(), calendar.getTime(), "invest", user.getId());
+        List<BillingReport> repaymentList = billingService.getReportDataByType(new Date(), calendar.getTime(), "repayment", user.getId());
+        List<BillingReport> online_shoppingList = billingService.getReportDataByType(new Date(), calendar.getTime(), "online_shopping", user.getId());
+        List<BillingReport> shoppingList = billingService.getReportDataByType(new Date(), calendar.getTime(), "shopping", user.getId());
 
         List<String> reportDateList = repastList.stream().map(c -> c.getDate()).collect(Collectors.toList());
         List<String> trafficDateList = trafficList.stream().map(c -> c.getDate()).collect(Collectors.toList());
@@ -120,17 +120,17 @@ public class BillingController {
         List<String> shoppingDateList = shoppingList.stream().map(c -> c.getDate()).collect(Collectors.toList());
 
         //排序
-        for(BillingReport b : reports){
-            BillingReport billingReport =new BillingReport();
+        for (BillingReport b : reports) {
+            BillingReport billingReport = new BillingReport();
             billingReport.setBillingAmount(BigDecimal.ZERO);
             billingReport.setDate(b.getDate());
             billingReport.setTime(new Date());
             long count1 = reportDateList.stream().filter(c -> c.equals(b.getDate())).count();
             long count2 = trafficDateList.stream().filter(c -> c.equals(b.getDate())).count();
             long count3 = investDateList.stream().filter(c -> c.equals(b.getDate())).count();
-            long count4 =  repaymentDateList.stream().filter(c -> c.equals(b.getDate())).count();
+            long count4 = repaymentDateList.stream().filter(c -> c.equals(b.getDate())).count();
             long count5 = online_shoppingDateList.stream().filter(c -> c.equals(b.getDate())).count();
-            long count6 =  shoppingDateList.stream().filter(c -> c.equals(b.getDate())).count();
+            long count6 = shoppingDateList.stream().filter(c -> c.equals(b.getDate())).count();
             if (count1 <= 0) {
                 repastList.add(billingReport);
             }
@@ -151,12 +151,12 @@ public class BillingController {
             }
         }
 
-        List<BigDecimal> repastCollect = repastList.stream().sorted(Comparator.comparing(BillingReport::getDate)).map(c->c.getBillingAmount()).collect(Collectors.toList());
-        List<BigDecimal> trafficCollect = trafficList.stream().sorted(Comparator.comparing(BillingReport::getDate)).map(c->c.getBillingAmount()).collect(Collectors.toList());
-        List<BigDecimal> investCollect = investList.stream().sorted(Comparator.comparing(BillingReport::getDate)).map(c->c.getBillingAmount()).collect(Collectors.toList());
-        List<BigDecimal> repaymentCollect = repaymentList.stream().sorted(Comparator.comparing(BillingReport::getDate)).map(c->c.getBillingAmount()).collect(Collectors.toList());
-        List<BigDecimal> online_shoppingCollect = online_shoppingList.stream().sorted(Comparator.comparing(BillingReport::getDate)).map(c->c.getBillingAmount()).collect(Collectors.toList());
-        List<BigDecimal> shoppingCollect = shoppingList.stream().sorted(Comparator.comparing(BillingReport::getDate)).map(c->c.getBillingAmount()).collect(Collectors.toList());
+        List<BigDecimal> repastCollect = repastList.stream().sorted(Comparator.comparing(BillingReport::getDate)).map(c -> c.getBillingAmount()).collect(Collectors.toList());
+        List<BigDecimal> trafficCollect = trafficList.stream().sorted(Comparator.comparing(BillingReport::getDate)).map(c -> c.getBillingAmount()).collect(Collectors.toList());
+        List<BigDecimal> investCollect = investList.stream().sorted(Comparator.comparing(BillingReport::getDate)).map(c -> c.getBillingAmount()).collect(Collectors.toList());
+        List<BigDecimal> repaymentCollect = repaymentList.stream().sorted(Comparator.comparing(BillingReport::getDate)).map(c -> c.getBillingAmount()).collect(Collectors.toList());
+        List<BigDecimal> online_shoppingCollect = online_shoppingList.stream().sorted(Comparator.comparing(BillingReport::getDate)).map(c -> c.getBillingAmount()).collect(Collectors.toList());
+        List<BigDecimal> shoppingCollect = shoppingList.stream().sorted(Comparator.comparing(BillingReport::getDate)).map(c -> c.getBillingAmount()).collect(Collectors.toList());
 
         data.put("dateList", dateList);
         data.put("repastCollect", repastCollect);//餐饮
