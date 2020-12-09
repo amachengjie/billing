@@ -59,10 +59,10 @@ public class BillingController {
                     m.put("billing_type", "还款");
                 }
                 if ("online_shopping".equals(m.get("billing_type"))) {
-                    m.put("billing_type", "网上购物");
+                    m.put("billing_type", "线上消费");
                 }
                 if ("shopping".equals(m.get("billing_type"))) {
-                    m.put("billing_type", "线下购物");
+                    m.put("billing_type", "线下消费");
                 }
                 if ("income".equals(m.get("billing_type"))) {
                     m.put("billing_type", "收入");

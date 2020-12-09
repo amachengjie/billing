@@ -148,7 +148,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'excel',
                             }
                         },
                         legend: {
-                            data: ['餐饮', '交通', '投资', '还款', '网上购物','线下购物']
+                            data: ['餐饮', '交通', '投资', '还款', '线上消费','线下消费']
                         },
                         grid: {
                             left: '5%',
@@ -201,7 +201,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'excel',
                                 data: data.data.repaymentCollect
                             },
                             {
-                                name: '网上购物',
+                                name: '线上消费',
                                 type: 'bar',
                                 stack: '总量',
                                 label: {
@@ -210,7 +210,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'excel',
                                 data: data.data.online_shoppingCollect
                             },
                             {
-                                name: '线下购物',
+                                name: '线下消费',
                                 type: 'bar',
                                 stack: '总量',
                                 label: {

@@ -158,15 +158,15 @@ public class StatisticsController {
                 responsDataList.add(map);
             }
             if (c.get("name").toString().equals("online_shopping")) {
-                nameList.add("网上购物");
+                nameList.add("线上消费");
                 map.put("value", c.get("value"));
-                map.put("name", "网上购物");
+                map.put("name", "线上消费");
                 responsDataList.add(map);
             }
             if (c.get("name").toString().equals("shopping")) {
-                nameList.add("线下购物");
+                nameList.add("线下消费");
                 map.put("value", c.get("value"));
-                map.put("name", "线下购物");
+                map.put("name", "线下消费");
                 responsDataList.add(map);
             }
         });
